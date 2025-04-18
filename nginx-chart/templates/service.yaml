@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: express
       protocol: TCP
-      name: http
+      name: express
   selector:
     {{- include "nginx-chart.selectorLabels" . | nindent 4 }}
