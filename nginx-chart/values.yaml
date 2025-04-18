@@ -1,16 +1,19 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: "1.25"
-  pullPolicy: IfNotPresent
+  repository: 986154984217.dkr.ecr.ap-northeast-1.amazonaws.com/container-nodejs-api-8000
+  tag: "latest"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ecr-secret
 
 nameOverride: ""
 fullnameOverride: ""
 
 service:
   type: NodePort
-  port: 80
+  port: 8000
   nodePort: ""
 
 resources:
@@ -23,7 +26,9 @@ resources:
 
 serviceAccount:
   create: true
-  name: nginx-app
+  name: express-app
+  imagePullSecrets:
+    - name: ecr-secret
 
 # Ingress設定を追加
 ingress:
