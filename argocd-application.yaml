@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-demo
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: 'https://github.com/kurosawa-kuro/kind-nginx-argo-manual-01.git'
+    targetRevision: development
+    path: .
+    helm:
+      releaseName: nginx-demo
+      valueFiles:
+        - nginx-chart/values.yaml
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
